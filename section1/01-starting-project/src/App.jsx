@@ -1,10 +1,13 @@
-import componentsImg from "./assets/components.png"
 import {CORE_CONCEPTS} from "./data.js"
 import MyHeader from "./components/MyHeader/MyHeader.jsx";
 import CoreConcept from "./components/CoreConcept.jsx";
+import TabButton from "./components/TabButton.jsx";
 
 
 function App() {
+  function handleClick(event){
+    console.log(event)
+  }
   return (
     <div>
       <MyHeader />
@@ -24,6 +27,16 @@ function App() {
             <CoreConcept {...CORE_CONCEPTS[3]}
             />
           </ul>
+        </section>
+        <section id="examples">
+          <h2>Examples</h2>
+          <menu>
+            <TabButton onClick={() => handleClick("component")}>Components</TabButton>
+            <TabButton onClick={() => handleClick("jsx")}>JSX</TabButton>
+            <TabButton onClick={() => handleClick("props")}>Props</TabButton>
+            <TabButton onClick={() => handleClick("state")}>State</TabButton>
+          </menu>
+          Dynamic Content
         </section>
       </main>
     </div>
