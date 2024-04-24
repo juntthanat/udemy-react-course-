@@ -29,7 +29,6 @@ function App() {
             <TabButton isSelected={selectedTopic === 'props'} onClick={() => handleClick("props")}>Props</TabButton>
             <TabButton isSelected={selectedTopic === 'state'} onClick={() => handleClick("state")}>State</TabButton>
           </menu>
-          {/* {!selectedTopic && <p>Please Select a Topic</p>} */}
           {selectedTopic ? (
             <div id="tab-content">
               <h3>{EXAMPLES[selectedTopic].title}</h3>
