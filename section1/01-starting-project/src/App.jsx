@@ -10,7 +10,7 @@ function App() {
     setSelectedTopic(event);
   }
   return (
-    <div>
+    <>
       <MyHeader />
       <main>
         <section id="core-concepts">
@@ -40,7 +40,7 @@ function App() {
           ) : <p>Please Select a Topic</p>}
         </section>
       </main>
-    </div>
+    </>
   );
 }
 
