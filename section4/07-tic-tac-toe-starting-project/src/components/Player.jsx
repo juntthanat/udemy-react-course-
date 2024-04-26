@@ -1,10 +1,18 @@
 import { useState } from "react";
-export default function PLayer({ initialName, symbol, isActive }) {
+export default function PLayer({
+  initialName,
+  symbol,
+  isActive,
+  onChangeName,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
 
   const handleEditClick = () => {
     setIsEditing((editing) => !editing);
+    if (isEditing) {
+      onChangeName(symbol, playerName);
+    }
   };
   const handleChange = (event) => {
     setPlayerName(event.target.value);
@@ -23,7 +31,7 @@ export default function PLayer({ initialName, symbol, isActive }) {
     );
 
   return (
-    <li className={isActive? 'active' : undefined}>
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
