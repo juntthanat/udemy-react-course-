@@ -27,8 +27,11 @@ export default function Calculator({ changeResult }) {
       annualInvestment > 0 &&
       expectedReturn > 0 &&
       duration > 0
-    )
+    ) {
       calculateResult();
+    } else {
+      alert("The input shouldn't be negative");
+    }
   }, [initialInvestment, annualInvestment, expectedReturn, duration]);
 
   let result = {};
