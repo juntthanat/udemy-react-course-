@@ -1,5 +1,6 @@
 import ProjectBar from "./components/ProjectBar";
 import HomePageUnselect from "./components/HomePageUnselect";
+import AddPage from "./components/AddPage"
 
 function App() {
   return (
@@ -8,7 +9,8 @@ function App() {
       <section className="w-full h-5/6 flex flex-auto flex-row">
         <ProjectBar></ProjectBar>
         <section className="w-3/4 h-full">
-          <HomePageUnselect/>
+          {/* <HomePageUnselect/> */}
+          <AddPage/>
         </section>  
       </section>
       {/* <div className="w-full flex-auto h-2 bg-stone-700"/> */}
