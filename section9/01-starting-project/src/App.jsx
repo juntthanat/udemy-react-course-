@@ -13,8 +13,23 @@ const tempData = {
 }
 
 function App() {
-  const [projects, setProjects] = useState([tempData]);
+  const [projects, setProjects] = useState([]);
   const [projectIndex, setProjectIndex] = useState(0);
+
+  const handleAddProject = (userInput) => {
+    setProjects([...projects, {
+      index: projects.length,
+      title: userInput.title,
+      description: userInput.description,
+      dueDate: userInput.dueDate,
+      tasks: [],
+    }])
+    console.log(projects)
+  }
+
+  const handleAddTask = (event) => {
+
+  }
 
   return (
     <main className="w-screen h-screen flex flex-col">
@@ -23,8 +38,8 @@ function App() {
         <ProjectBar></ProjectBar>
         <section className="w-3/4 h-full">
           {/* <HomePageUnselect/> */}
-          {/* <AddPage /> */}
-          <AddTask projects={projects} projectIndex={projectIndex}/>
+          <AddPage onAddProject={handleAddProject}/>
+          {/* <AddTask projects={projects} projectIndex={projectIndex}/> */}
         </section>
       </section>
       {/* <div className="w-full flex-auto h-2 bg-stone-700"/> */}

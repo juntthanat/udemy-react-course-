@@ -1,7 +1,7 @@
 import SaveButton from "./SaveButton";
 import { useState } from "react";
 
-export default function AddPage() {
+export default function AddPage({onAddProject}) {
   const [saveProjectData, setSaveProjectData] = useState({
     title: "",
     description: "",
@@ -9,7 +9,7 @@ export default function AddPage() {
   });
 
   const handleSave = () => {
-    console.log(saveProjectData);
+    onAddProject(saveProjectData);
   };
   const handleCancel = () => {
 
