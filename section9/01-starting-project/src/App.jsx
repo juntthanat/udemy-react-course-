@@ -10,36 +10,61 @@ const tempData = {
   description: "TestDescription",
   dueDate: "00/00/00",
   tasks: ["TestMe", "Hello world"],
-}
+};
 
 function App() {
   const [projects, setProjects] = useState([]);
   const [projectIndex, setProjectIndex] = useState(0);
+  const [createProject, setCreateProject] = useState(false);
 
-  const handleAddProject = (userInput) => {
-    setProjects([...projects, {
-      index: projects.length,
-      title: userInput.title,
-      description: userInput.description,
-      dueDate: userInput.dueDate,
-      tasks: [],
-    }])
-    console.log(projects)
+  const handleSaveNewProject = (userInput) => {
+    setProjects([
+      ...projects,
+      {
+        index: projects.length,
+        title: userInput.title,
+        description: userInput.description,
+        dueDate: userInput.dueDate,
+        tasks: [],
+      },
+    ]);
+    setCreateProject(false);
+    console.log(projects);
+  };
+
+  const handleCancel = () => {
+    setCreateProject(false);
   }
 
-  const handleAddTask = (event) => {
-
+  const handleOnClickProjectBar = (event) => {
+    console.log(projectIndex)
+    setProjectIndex(event);
   }
+
+  const handleAddTask = (event) => {};
+
+  const handleAddProject = (event) => {
+    setCreateProject(true);
+    console.log("Click")
+  };
+
+  const handlePages = () => {
+    if (createProject == true) {
+      return <AddPage onSaveNewProject={handleSaveNewProject} onCancel={handleCancel}/>;
+    } else if (projects.length == 0) {
+      return <HomePageUnselect onAddProject={handleAddProject} />;
+    } else {
+      return <AddTask projects={projects} projectIndex={projectIndex} />;
+    }
+  };
 
   return (
     <main className="w-screen h-screen flex flex-col">
       <div className="w-full h-12" />
       <section className="w-full h-5/6 flex flex-auto flex-row">
-        <ProjectBar></ProjectBar>
+        <ProjectBar projects={projects} projectIndex={projectIndex} onAddProject={handleAddProject} onClickProject={handleOnClickProjectBar}/>
         <section className="w-3/4 h-full">
-          {/* <HomePageUnselect/> */}
-          <AddPage onAddProject={handleAddProject}/>
-          {/* <AddTask projects={projects} projectIndex={projectIndex}/> */}
+          {handlePages()}
         </section>
       </section>
       {/* <div className="w-full flex-auto h-2 bg-stone-700"/> */}
@@ -48,7 +73,6 @@ function App() {
 }
 
 export default App;
-
 
 // {
 //   title: "",

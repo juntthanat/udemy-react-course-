@@ -1,7 +1,7 @@
 import SaveButton from "./SaveButton";
 import { useState } from "react";
 
-export default function AddPage({onAddProject}) {
+export default function AddPage({onSaveNewProject, onCancel}) {
   const [saveProjectData, setSaveProjectData] = useState({
     title: "",
     description: "",
@@ -9,11 +9,8 @@ export default function AddPage({onAddProject}) {
   });
 
   const handleSave = () => {
-    onAddProject(saveProjectData);
+    onSaveNewProject(saveProjectData);
   };
-  const handleCancel = () => {
-
-  }
 
   const handleTitle = (event) => {
     setSaveProjectData({
@@ -38,7 +35,7 @@ export default function AddPage({onAddProject}) {
 
   return (
     <div className="w-full h-full flex items-center pt-40 pr-64 pl-12 flex-col ">
-      <SaveButton onSave={handleSave} onCancel={handleCancel}/>
+      <SaveButton onSave={handleSave} onCancel={() => onCancel()}/>
       <div className="w-full h-full font-bold flex flex-col space-y-6 mt-6">
         <div>
           TITLE
