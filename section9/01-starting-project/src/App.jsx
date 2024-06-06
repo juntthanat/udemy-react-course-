@@ -1,7 +1,7 @@
 import ProjectBar from "./components/ProjectBar";
 import HomePageUnselect from "./components/HomePageUnselect";
-import AddPage from "./components/AddPage";
-import AddTask from "./components/AddTask";
+import AddProject from "./components/AddProject";
+import ProjectPage from "./components/ProjectPage";
 import { useState } from "react";
 
 const tempData = {
@@ -41,7 +41,7 @@ function App() {
     setProjectIndex(event);
   }
 
-  const handleAddTask = (event) => {};
+  const handleProjectPage = (event) => {};
 
   const handleAddProject = (event) => {
     setCreateProject(true);
@@ -50,11 +50,11 @@ function App() {
 
   const handlePages = () => {
     if (createProject == true) {
-      return <AddPage onSaveNewProject={handleSaveNewProject} onCancel={handleCancel}/>;
+      return <AddProject onSaveNewProject={handleSaveNewProject} onCancel={handleCancel}/>;
     } else if (projects.length == 0) {
       return <HomePageUnselect onAddProject={handleAddProject} />;
     } else {
-      return <AddTask projects={projects} projectIndex={projectIndex} />;
+      return <ProjectPage projects={projects} projectIndex={projectIndex} />;
     }
   };
 
