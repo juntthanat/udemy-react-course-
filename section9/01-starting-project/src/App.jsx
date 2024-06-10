@@ -4,25 +4,26 @@ import AddProject from "./components/AddProject";
 import ProjectPage from "./components/ProjectPage";
 import { useState } from "react";
 
-const tempData = [
-  {
-    index: "0",
-    title: "TestTitle",
-    description: "TestDescription",
-    dueDate: "00/00/00",
-    tasks: ["hello world", "Test Task"],
-  },
-  {
-    index: "1",
-    title: "TestTitle2",
-    description: "TestDescription2",
-    dueDate: "00/00/01",
-    tasks: ["hello world2", "Test Task2"],
-  },
-];
+// const tempData = [
+//   {
+//     index: "0",
+//     title: "TestTitle",
+//     description: "TestDescription",
+//     dueDate: "00/00/00",
+//     tasks: ["hello world", "Test Task"],
+//   },
+//   {
+//     index: "1",
+//     title: "TestTitle2",
+//     description: "TestDescription2",
+//     dueDate: "00/00/01",
+//     tasks: ["hello world2", "Test Task2"],
+//   },
+// ];
 
 function App() {
-  const [projects, setProjects] = useState(tempData);
+  // const [projects, setProjects] = useState(tempData);
+  const [projects, setProjects] = useState([]);
   const [projectIndex, setProjectIndex] = useState(0);
   const [createProject, setCreateProject] = useState(false);
 
@@ -34,10 +35,10 @@ function App() {
         title: userInput.title,
         description: userInput.description,
         dueDate: userInput.dueDate,
+        tasks: [],
       },
     ]);
     setCreateProject(false);
-    console.log(projects);
   };
 
   const handleCancel = () => {
@@ -50,18 +51,17 @@ function App() {
 
   const handleAddProject = (event) => {
     setCreateProject(true);
-    console.log("Click");
   };
 
-    const handleAddTask = (event) => {
-      const updateProject = projects.map((project) => {
+  const handleAddTask = (event) => {
+    const updateProject = projects.map((project) => {
       if (project.index == projectIndex) {
         return {
           ...project,
           tasks: [...project.tasks, event],
         };
       } else {
-        return project
+        return project;
       }
     });
     setProjects(updateProject);
@@ -69,12 +69,13 @@ function App() {
 
   const handleClearTask = (event) => {
     const updateProject = projects.map((project) => {
-      if (project.id !== projectIndex) {
+      if (project.index != projectIndex) {
         return project;
-      } else {
+        } else {
+        console.log();
         return {
           ...project,
-          task: [project.tasks.filter((task) => task === event)],
+          tasks: project.tasks.filter((task) => task !== event),
         };
       }
     });
@@ -84,7 +85,6 @@ function App() {
   const handlePages = () => {
     let selectedProject = {};
     projects.map((project) => {
-      // console.log(project)
       if (project.index == projectIndex) {
         selectedProject = project;
       }

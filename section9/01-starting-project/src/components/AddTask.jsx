@@ -15,11 +15,15 @@ export default function AddTask({
   };
 
   const onAddTask = () => {
+    setNewTask("")
     handleAddTask(newTask);
   };
 
   const onClearTask = (event) => {
-    console.log(event.target.id)
+    // console.log(event.target.id)
+    // console.log(taskList[event.target.id])
+    // handleClearTask(event.target.id)
+    handleClearTask(taskList[event.target.id])
   };
   return (
     <div className="pt-8 w-full">
@@ -28,6 +32,7 @@ export default function AddTask({
         <input
           type="text"
           onChange={handleEditNewTask}
+          value={newTask}
           className="font-normal w-[40%] h-10 bg-stone-200 outline-none border-gray-300 focus:border-stone-700 border-b-2 p-2 "
         ></input>
         <div onClick={onAddTask} className=" h-full flex items-center pl-8">
