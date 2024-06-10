@@ -34,9 +34,9 @@ export default function AddTask({
           Add Task
         </div>
       </div>
-      <div className="w-full h-64 mt-12 pt-4 pl-4 pr-4 bg-gray-200">
+      <div className="w-full h-64 mt-12 pt-4 pb-4 pl-4 pr-4 bg-gray-200 overflow-auto">
         {taskList.map((task, idx) => (
-          <div key={idx} className="flex mt-4 overflow-auto">
+          <div key={idx} className="flex mt-4">
             <div className="flex-grow">{task}</div>
             <div onClick={onClearTask} id={idx}>Clear</div>
           </div>

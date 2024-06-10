@@ -53,19 +53,18 @@ function App() {
     console.log("Click");
   };
 
-  const handleAddTask = (event) => {
-    const updateProject = projects.map((project) => {
-      if (project.id !== projectIndex) {
-        return project;
-      } else {
+    const handleAddTask = (event) => {
+      const updateProject = projects.map((project) => {
+      if (project.index == projectIndex) {
         return {
           ...project,
-          task: [project.tasks, event],
+          tasks: [...project.tasks, event],
         };
+      } else {
+        return project
       }
     });
     setProjects(updateProject);
-    console.log(projects);
   };
 
   const handleClearTask = (event) => {
@@ -85,6 +84,7 @@ function App() {
   const handlePages = () => {
     let selectedProject = {};
     projects.map((project) => {
+      // console.log(project)
       if (project.index == projectIndex) {
         selectedProject = project;
       }
