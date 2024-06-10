@@ -2,24 +2,25 @@ import { useEffect, useState } from "react";
 
 const tempIndex = "000";
 
-export default function AddTask({ taskList, projectIndex, handleAddTask, handleClearTask }) {
+export default function AddTask({
+  taskList,
+  projectIndex,
+  handleAddTask,
+  handleClearTask,
+}) {
   const [newTask, setNewTask] = useState("");
-  const [taskListComponent, setTaskListComponent] = useState(<div></div>);
 
   const handleEditNewTask = (event) => {
     setNewTask(event.target.value);
   };
 
-  const onAddTask = (event) => {
-    handleAddTask(newTask)
+  const onAddTask = () => {
+    handleAddTask(newTask);
   };
 
-  const onClearTask = () => {};
-
-  useEffect(() => {
-    taskList.map((task, idx) => {
-    });
-  });
+  const onClearTask = (event) => {
+    console.log(event.target.id)
+  };
   return (
     <div className="pt-8 w-full">
       <div className="font-bold text-4xl flex-grow">Tasks</div>
@@ -33,8 +34,13 @@ export default function AddTask({ taskList, projectIndex, handleAddTask, handleC
           Add Task
         </div>
       </div>
-      <div className="w-full h-64 mt-12 bg-gray-200">
-        {taskList.map((task, idx) => <div key={idx}>{task}</div>)}
+      <div className="w-full h-64 mt-12 pt-4 pl-4 pr-4 bg-gray-200">
+        {taskList.map((task, idx) => (
+          <div key={idx} className="flex mt-4 overflow-auto">
+            <div className="flex-grow">{task}</div>
+            <div onClick={onClearTask} id={idx}>Clear</div>
+          </div>
+        ))}
       </div>
     </div>
   );
