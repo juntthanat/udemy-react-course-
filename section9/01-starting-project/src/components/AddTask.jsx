@@ -20,9 +20,6 @@ export default function AddTask({
   };
 
   const onClearTask = (event) => {
-    // console.log(event.target.id)
-    // console.log(taskList[event.target.id])
-    // handleClearTask(event.target.id)
     handleClearTask(taskList[event.target.id])
   };
   return (

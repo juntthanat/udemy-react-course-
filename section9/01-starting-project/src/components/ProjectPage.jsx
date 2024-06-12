@@ -3,6 +3,7 @@ import AddTask from "./AddTask";
 export default function ProjectPage({
   selectedProject,
   projectIndex,
+  handleDeleteProject,
   handleAddTask,
   handleClearTask,
 }) {
@@ -12,7 +13,7 @@ export default function ProjectPage({
         <div className="font-bold text-4xl flex-grow">
           {selectedProject.title}
         </div>
-        <div className="flex-none flex items-center justify-center">Delete</div>
+        <div className="flex-none flex items-center justify-center" onClick={handleDeleteProject}>Delete</div>
       </div>
       <div className="text-gray-400 pt-8">{selectedProject.dueDate}</div>
       <div className="pt-8">{selectedProject.description}</div>

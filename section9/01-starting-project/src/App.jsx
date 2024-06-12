@@ -38,11 +38,23 @@ function App() {
         tasks: [],
       },
     ]);
+    setProjectIndex(projects.length)
     setCreateProject(false);
   };
 
   const handleCancel = () => {
     setCreateProject(false);
+  };
+
+  const handleDeleteProject = () => {
+    const updateProject = projects.filter(
+      (project) => project.index != projectIndex
+    );
+    const updateProjectIndexList = updateProject.map((project, index) => {
+      return {...project, index: index}
+    })
+    setProjectIndex(0);
+    setProjects(updateProjectIndexList);
   };
 
   const handleOnClickProjectBar = (event) => {
@@ -71,8 +83,7 @@ function App() {
     const updateProject = projects.map((project) => {
       if (project.index != projectIndex) {
         return project;
-        } else {
-        console.log();
+      } else {
         return {
           ...project,
           tasks: project.tasks.filter((task) => task !== event),
@@ -84,6 +95,7 @@ function App() {
 
   const handlePages = () => {
     let selectedProject = {};
+
     projects.map((project) => {
       if (project.index == projectIndex) {
         selectedProject = project;
@@ -103,6 +115,7 @@ function App() {
         <ProjectPage
           selectedProject={selectedProject}
           projectIndex={projectIndex}
+          handleDeleteProject={handleDeleteProject}
           handleAddTask={handleAddTask}
           handleClearTask={handleClearTask}
         />
