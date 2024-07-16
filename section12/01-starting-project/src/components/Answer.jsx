@@ -1,4 +1,4 @@
-export default function Answer({ answerList, handleClick }) {
+export default function Answer({ answerList, handleClick, answered }) {
   const arrayList = [...answerList];
   const arrayId = ['0', '1', '2', '3'];
 
@@ -19,17 +19,17 @@ export default function Answer({ answerList, handleClick }) {
   }
 
   const shuffleAnswerList = shuffleList(jointArray);
-  console.log(shuffleAnswerList);
+
   return (
     <div id="answers">
       {shuffleAnswerList.map((answer) => (
         <div className="answer" key={answer[0]}>
           {answer[0] === '0' ? (
-            <button className="correct" onClick={handleClick} value={answer[0]}>
+            <button className={answered? 'correct' : null} onClick={handleClick} value={answer[0]}>
               {answer[1]}
             </button>
           ) : (
-            <button className="wrong" onClick={handleClick} value={answer[0]}>
+            <button className={answered? 'wrong' : null} onClick={handleClick} value={answer[0]}>
               {answer[1]}
             </button>
           )}
