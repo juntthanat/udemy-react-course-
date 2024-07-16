@@ -1,9 +1,38 @@
 export default function Answer({ answerList, handleClick }) {
+  const arrayList = [...answerList];
+  const arrayId = ['0', '1', '2', '3'];
+
+  const jointArray = []
+  for (let i=0; i<arrayList.length && i<arrayId.length; i++)
+    jointArray[i] = [arrayId[i], arrayList[i]];
+
+
+  function shuffleList(sortedList) {
+    const array = sortedList;
+
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const shuffleAnswerList = shuffleList(jointArray);
+  console.log(shuffleAnswerList);
   return (
     <div id="answers">
-      {answerList.map((answer, key) => (
-        <div className="answer" key={key}>
-          <button onClick={handleClick} value={key}>{answer}</button>
+      {shuffleAnswerList.map((answer) => (
+        <div className="answer" key={answer[0]}>
+          {answer[0] === '0' ? (
+            <button className="correct" onClick={handleClick} value={answer[0]}>
+              {answer[1]}
+            </button>
+          ) : (
+            <button className="wrong" onClick={handleClick} value={answer[0]}>
+              {answer[1]}
+            </button>
+          )}
         </div>
       ))}
     </div>

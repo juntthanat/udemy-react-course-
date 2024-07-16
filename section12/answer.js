@@ -5,23 +5,23 @@ export default [
     },
     {
         id: 'a2',
-        answer: 1
+        answer: 0
     },
     {
         id: 'a3',
-        answer: 2
+        answer: 0
     },
     {
         id: 'a4',
-        answer: 3
+        answer: 0
     },
     {
         id: 'a5',
-        answer: 2
+        answer: 0
     },
     {
         id: 'a6',
-        answer: 1
+        answer: 0
     },
     {
         id: 'a7',
