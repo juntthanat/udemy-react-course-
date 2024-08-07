@@ -21,31 +21,40 @@ export default function Quiz() {
   function handleIncorrect() {
     setScore({
       ...score,
-      incorrect: score.incorrect + 1
-    })
+      incorrect: score.incorrect + 1,
+    });
   }
   function handleSkipped() {
     setScore({
-      ...score, skipped: score.skipped + 1
-    })
+      ...score,
+      skipped: score.skipped + 1,
+    });
   }
-  // const [questionText, setQuestionText] = useState(questions[questionId].text);
-  // const [answerList, setAnswerList] = useState(questions[questionId].answers);
 
-  function handleClick(event) {
-    console.log(event.target.value);
+  function checkAnswer(id) {
+    if (id === 0) {
+      handleCorrect();
+    } else if (remainingTime === 0) {
+      handleSkipped();
+    } else {
+      handleIncorrect();
+    }
+  }
+
+  function handleClick_TimeOut() {
+    // console.log(event.target.value);
     if (questionId < questions.length - 1) {
       setQuestionId(questionId + 1);
     }
-    setAnswered(true)
+    setAnswered(true);
   }
 
   return (
     <div id="quiz">
-      <Question question={questions[questionId].text} />
+      <Question question={questions[questionId].text} handleTimeOut={handleClick_TimeOut}/>
       <Answer
         answerList={questions[questionId].answers}
-        handleClick={handleClick}
+        handleClick={handleClick_TimeOut}
         answered={answered}
       />
     </div>
