@@ -1,84 +1,74 @@
 import { useState, useEffect, useRef } from "react";
 
-const NEXT_QUESTION_TIMER = 3000;
+const QUESTION_TIME = 5000;
+const NEXT_QUESTION_TIME = 3000;
 
-export default function Timer({ TIMER, handleTimeOut }) {
-  const [remainingTime, setRemainingTime] = useState(TIMER);
+export default function Timer({ handleTimeOut }) {
+  const [questionRemainingTime, setQuestionRemainingTime] =
+    useState(QUESTION_TIME);
   const [nextQuestionRemainingTime, setNextQuestionRemainingTime] =
-    useState(NEXT_QUESTION_TIMER);
-  const [loadingNextQuestion, setLoadingNextQuestion] = useState(false);
-  const interval = useRef(null);
-  const nextQuestionTime = useRef(null);
+    useState(NEXT_QUESTION_TIME);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const questionTimerInterval = useRef(null);
+  const nextQuestionTimerInterval = useRef(null);
   const initialized = useRef(false);
 
-  // useEffect(() => {
-  //   interval.current = setInterval(() => {
-  //     setRemainingTime((prevTime) => prevTime - 10);
-  //   }, 10);
-
-  //   return () => {
-  //     clearInterval(interval.current)
-  //   }
-  // }, [loadingNextQuestion]);
-
-  // useEffect(() => {
-  //   handleQuestionTimeInterval();
-  // }, [])
-
   useEffect(() => {
-    if(!initialized.current){
+    if (!initialized.current) {
       initialized.current = true;
       handleQuestionTimeInterval();
     }
-  })
-  
+  });
 
-  console.log(remainingTime)
   const handleQuestionTimeInterval = () => {
-    interval.current = setInterval(() => {
-      setRemainingTime((prevTime) => prevTime - 10);
+    questionTimerInterval.current = setInterval(() => {
+      setQuestionRemainingTime((prevTime) => prevTime - 10);
     }, 10);
 
     return () => {
-      clearInterval(interval.current)
-    }
-  }
+      clearInterval(questionTimerInterval.current);
+    };
+  };
 
   useEffect(() => {
-    if (remainingTime === 0) {
-      clearInterval(interval.current);
+    if (questionRemainingTime === 0) {
+      clearInterval(questionTimerInterval.current);
+      setShowAnswer(true);
+      setNextQuestionRemainingTime(NEXT_QUESTION_TIME)
       handleLoadingNextQuestion();
-      console.log("Remaning Time = 0")
     }
-  }, [remainingTime]);
+  }, [questionRemainingTime]);
 
   const handleLoadingNextQuestion = () => {
-    nextQuestionTime.current = setInterval(() => {
+    nextQuestionTimerInterval.current = setInterval(() => {
       setNextQuestionRemainingTime((prevTime) => prevTime - 10);
     }, 10);
 
+    return () => {
+      clearInterval(nextQuestionRemainingTime.current)
+    }
   };
-  
+
   useEffect(() => {
     if (nextQuestionRemainingTime === 0) {
-      clearInterval(nextQuestionTime)
+      clearInterval(nextQuestionTimerInterval.current);
       handleTimeOut();
-      setRemainingTime(TIMER)
-      // setLoadingNextQuestion(!loadingNextQuestion);
+      setQuestionRemainingTime(QUESTION_TIME);
+      setShowAnswer(false);
       handleQuestionTimeInterval();
     }
   }, [nextQuestionRemainingTime]);
 
   const startTimer = () => {
     handleQuestionTimeInterval();
-  }
+  };
 
   return (
     <>
-      {loadingNextQuestion ? (
-        <progress max={NEXT_QUESTION_TIMER} value={nextQuestionRemainingTime} />
+      {showAnswer ? (
+        <progress max={NEXT_QUESTION_TIME} value={nextQuestionRemainingTime} />
       ) : (
-        <progress max={TIMER} value={remainingTime} />
+        <progress max={QUESTION_TIME} value={questionRemainingTime} />
       )}
       <button
         onClick={() => {
