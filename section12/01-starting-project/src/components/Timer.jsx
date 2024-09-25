@@ -3,12 +3,12 @@ import { useState, useEffect, useRef } from "react";
 const QUESTION_TIME = 5000;
 const NEXT_QUESTION_TIME = 3000;
 
-export default function Timer({ handleTimeOut }) {
+export default function Timer({ handleTimeOut, showAnswer }) {
   const [questionRemainingTime, setQuestionRemainingTime] =
     useState(QUESTION_TIME);
   const [nextQuestionRemainingTime, setNextQuestionRemainingTime] =
     useState(NEXT_QUESTION_TIME);
-  const [showAnswer, setShowAnswer] = useState(false);
+  const [showNewQuestion, setShowNewQuestion] = useState(false);
   const questionTimerInterval = useRef(null);
   const nextQuestionTimerInterval = useRef(null);
   const initialized = useRef(false);
@@ -33,7 +33,8 @@ export default function Timer({ handleTimeOut }) {
   useEffect(() => {
     if (questionRemainingTime === 0) {
       clearInterval(questionTimerInterval.current);
-      setShowAnswer(true);
+      setShowNewQuestion(true);
+      showAnswer();
       setNextQuestionRemainingTime(NEXT_QUESTION_TIME)
       handleLoadingNextQuestion();
     }
@@ -54,7 +55,8 @@ export default function Timer({ handleTimeOut }) {
       clearInterval(nextQuestionTimerInterval.current);
       handleTimeOut();
       setQuestionRemainingTime(QUESTION_TIME);
-      setShowAnswer(false);
+      setShowNewQuestion(false);
+      showAnswer();
       handleQuestionTimeInterval();
     }
   }, [nextQuestionRemainingTime]);
@@ -65,7 +67,7 @@ export default function Timer({ handleTimeOut }) {
 
   return (
     <>
-      {showAnswer ? (
+      {showNewQuestion ? (
         <progress max={NEXT_QUESTION_TIME} value={nextQuestionRemainingTime} />
       ) : (
         <progress max={QUESTION_TIME} value={questionRemainingTime} />

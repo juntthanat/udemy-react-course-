@@ -42,19 +42,22 @@ export default function Quiz() {
   }
 
   function handleClick_TimeOut() {
-    // console.log(event.target.value);
     if (questionId < questions.length - 1) {
       setQuestionId(questionId + 1);
     }
-    setAnswered(true);
+  }
+
+  function handleShow_Answer() {
+    setAnswered(!answered)
   }
 
   return (
     <div id="quiz">
-      <Question question={questions[questionId].text} handleTimeOut={handleClick_TimeOut}/>
+      <Question question={questions[questionId].text} handleTimeOut={handleClick_TimeOut} showAnswer={handleShow_Answer}/>
       <Answer
         answerList={questions[questionId].answers}
         handleClick={handleClick_TimeOut}
+        
         answered={answered}
       />
     </div>
