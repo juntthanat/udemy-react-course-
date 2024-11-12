@@ -6,6 +6,8 @@ import Answer from "./Answer";
 export default function Quiz() {
   const [questionId, setQuestionId] = useState(0);
   const [answered, setAnswered] = useState(false);
+  const [userAnswered, setUserAnswered] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
   const [score, setScore] = useState({
     correct: 0,
     incorrect: 0,
@@ -48,17 +50,27 @@ export default function Quiz() {
   }
 
   function handleShow_Answer() {
-    setAnswered(!answered)
+    setAnswered(!answered);
+  }
+
+  function handleUser_Answer() {
+    setUserAnswered(!userAnswered);
   }
 
   return (
     <div id="quiz">
-      <Question question={questions[questionId].text} handleTimeOut={handleClick_TimeOut} showAnswer={handleShow_Answer}/>
+      <Question
+        question={questions[questionId].text}
+        handleTimeOut={handleClick_TimeOut}
+        showAnswer={handleShow_Answer}
+        userAnswered={userAnswered}
+      />
       <Answer
         answerList={questions[questionId].answers}
-        handleClick={handleClick_TimeOut}
-        
+        // handleClick={handleClick_TimeOut}
+        handleClick={handleUser_Answer}
         answered={answered}
+        showAnswer={showAnswer}
       />
     </div>
   );

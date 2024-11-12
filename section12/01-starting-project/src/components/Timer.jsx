@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 const QUESTION_TIME = 5000;
 const NEXT_QUESTION_TIME = 3000;
 
-export default function Timer({ handleTimeOut, showAnswer }) {
+export default function Timer({ handleTimeOut, showAnswer, userAnswered }) {
   const [questionRemainingTime, setQuestionRemainingTime] =
     useState(QUESTION_TIME);
   const [nextQuestionRemainingTime, setNextQuestionRemainingTime] =
@@ -35,10 +35,11 @@ export default function Timer({ handleTimeOut, showAnswer }) {
       clearInterval(questionTimerInterval.current);
       setShowNewQuestion(true);
       showAnswer();
+      // handleTimeOut();
       setNextQuestionRemainingTime(NEXT_QUESTION_TIME)
       handleLoadingNextQuestion();
     }
-  }, [questionRemainingTime]);
+  }, [questionRemainingTime, userAnswered]);
 
   const handleLoadingNextQuestion = () => {
     nextQuestionTimerInterval.current = setInterval(() => {
@@ -53,7 +54,7 @@ export default function Timer({ handleTimeOut, showAnswer }) {
   useEffect(() => {
     if (nextQuestionRemainingTime === 0) {
       clearInterval(nextQuestionTimerInterval.current);
-      handleTimeOut();
+      // handleTimeOut();
       setQuestionRemainingTime(QUESTION_TIME);
       setShowNewQuestion(false);
       showAnswer();

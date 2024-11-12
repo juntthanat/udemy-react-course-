@@ -1,4 +1,12 @@
-export default function Answer({ answerList, handleClick, answered }) {
+import { useState, useEffect } from "react";
+
+export default function Answer({
+  answerList,
+  handleClick,
+  answered,
+  showAnswer,
+}) {
+  const [randomAnswerArray, setRandomAnswerArray] = useState();
   const randomArray = shuffleList(
     Array(answerList.length)
       .fill(0)
@@ -25,35 +33,9 @@ export default function Answer({ answerList, handleClick, answered }) {
 
   const shuffleAnswerList = shuffleList(jointArray);
 
-  // return (
-  //   <div id="answers">
-  //     {shuffleAnswerList.map((answer) => (
-  //       <div className="answer" key={answer[0]}>
-  //         {answer[0] === "0" ? (
-  //           <button
-  //             className={answered ? "correct" : null}
-  //             onClick={handleClick}
-  //             value={answer[0]}
-  //           >
-  //             {answer[1]}
-  //           </button>
-  //         ) : (
-  //           <button
-  //             className={answered ? "wrong" : null}
-  //             onClick={handleClick}
-  //             value={answer[0]}
-  //           >
-  //             {answer[1]}
-  //           </button>
-  //         )}
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
-
-  return (
-    <div id="answers">
-      {randomArray.map((random) => (
+  useEffect(() => {
+    setRandomAnswerArray(
+      randomArray.map((random) => (
         <div className="answer" key={answerList[random]}>
           <button
             className={answered ? (random === 0 ? "correct" : "wrong") : null}
@@ -63,7 +45,24 @@ export default function Answer({ answerList, handleClick, answered }) {
             {answerList[random]} {random}
           </button>
         </div>
-      ))}
+      ))
+    );
+  }, [showAnswer]);
+
+  return (
+    <div id="answers">
+      {/* {randomArray.map((random) => (
+        <div className="answer" key={answerList[random]}>
+          <button
+            className={answered ? (random === 0 ? "correct" : "wrong") : null}
+            onClick={handleClick}
+            value={answerList[random]}
+          >
+            {answerList[random]} {random}
+          </button>
+        </div>
+      ))} */}
+      {randomAnswerArray}
     </div>
   );
 }
