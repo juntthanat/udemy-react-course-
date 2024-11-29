@@ -6,9 +6,6 @@ export default function Summary({ userAnswer }) {
   const correctAnswer = userAnswer.filter(
     (answer, index) => answer === QUESTIONS[index].answers[0]
   );
-  //   const wrongAnswer = userAnswer.filter(
-  //     (answer) => answer !== QUESTIONS[index.answers[0]]
-  //   );
 
   const skippedAnswerShare = Math.round((skippedAnswer.length / QUESTIONS.length) * 100);
   const correctAnswerShare = Math.round((correctAnswer.length / QUESTIONS.length) * 100);
@@ -43,7 +40,7 @@ export default function Summary({ userAnswer }) {
             cssClass += " wrong";
           }
           return (
-            <li key={answer}>
+            <li key={index}>
               <h3>{index + 1}</h3>
               <p className="question">{QUESTIONS[index].text}</p>
               <p className={cssClass}>{answer ?? "Skipped"}</p>
