@@ -12,13 +12,13 @@ const DUMMY_USERS = [
 class Users extends Component {
   constructor() {
     this.state = {
-      showUsers: true
+      showUsers: true,
     };
   }
 
   toggleUsersHandler() {
-    this.setState({
-      showUsers: this.showUsers
+    this.setState((curState) => {
+      return { showUsers: !curState.showUsers };
     });
   }
 
@@ -51,7 +51,7 @@ const Users = () => {
 
   return (
     <div className={classes.users}>
-      <button onClick={toggleUsersHandler}>
+      <button onClick={this.toggleUsersHandler}>
         {showUsers ? "Hide" : "Show"} Users
       </button>
       {showUsers && usersList}
