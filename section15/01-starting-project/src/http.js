@@ -15,7 +15,7 @@ export async function updateUserPlaces(places) {
     method: "PUT",
     body: JSON.stringify({ places }),
     headers: {
-      "Content-Tyoe": "application/json",
+      "Content-Type": "application/json",
     },
   });
 
@@ -27,3 +27,15 @@ export async function updateUserPlaces(places) {
 
   return resData.message;
 }
+
+export async function fetchUserPlaces() {
+    const response = await fetch("http://localhost:3000/user-places");
+    const resData = await response.json();
+  
+    // 200 or 300 status code if false 400 or 500 status code
+    if (!response.ok) {
+      throw new Error("Failed to fetch user places");
+    }
+  
+    return resData.places;
+  }
