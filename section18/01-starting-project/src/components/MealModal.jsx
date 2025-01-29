@@ -1,4 +1,4 @@
-export default function MealModal({ meal }) {
+export default function MealModal({ meal, onAddToCart }) {
   return (
     <div className="meal-item">
       <article>
@@ -7,7 +7,12 @@ export default function MealModal({ meal }) {
         <div>
           <div className="meal-item-price">{`$${meal.price}`}</div>
           <div className="meal-item-description">{meal.description}</div>
-          <div className="meal-item-actions meal-item-price button">add to cart</div>
+          <div
+            className="meal-item-actions meal-item-price button"
+            onClick={() => {onAddToCart(meal.id)}}
+          >
+            add to cart
+          </div>
         </div>
       </article>
     </div>

@@ -260,3 +260,16 @@ h1 {
     transform: translateY(0);
   }
 }
+
+
+/* Self Made */
+
+.cart-modal {
+position: absolute;
+left: 50%;
+top: 50%;
+}
+
+.cart-modal-text {
+color:  #1f1a09
+}
